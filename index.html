@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K. Purushotham Shenoy - Cloud & DevOps Engineer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark-bg: #0A0A0A;
+            --charcoal-grey: #1A1A1A;
+            --light-text: #E0E0E0;
+            --accent-cyan: #00FFFF;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            line-height: 1.6;
+        }
+
+        /* Black Radium Aesthetic */
+        .bg-black-radium { background-color: var(--dark-bg); }
+        .text-cyan { color: var(--accent-cyan); }
+        .shadow-cyan-glow { box-shadow: 0 0 15px rgba(0, 255, 255, 0.3), 0 0 5px rgba(0, 255, 255, 0.5); }
+        .button-glow:hover { box-shadow: 0 0 25px rgba(0, 255, 255, 0.5), 0 0 10px rgba(0, 255, 255, 0.7); }
+        .icon-glow:hover, .nav-link-glow:hover { color: var(--accent-cyan); filter: drop-shadow(0 0 8px var(--accent-cyan)); }
+        
+        /* Glassmorphism */
+        .glassmorphism {
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Dynamic Grid Background */
+        #home {
+            background-image: 
+                linear-gradient(rgba(10, 10, 10, 0.95), rgba(10, 10, 10, 0.95)),
+                linear-gradient(0deg, var(--accent-cyan) 1px, transparent 1px), 
+                linear-gradient(90deg, var(--accent-cyan) 1px, transparent 1px);
+            background-size: 100% 100%, 50px 50px, 50px 50px;
+            background-position: 0 0, 0 0, 0 0;
+            animation: moveGrid 20s linear infinite;
+        }
+        @keyframes moveGrid {
+            from { background-position: 0 0, 0 0, 0 0; }
+            to { background-position: 0 0, 50px 50px, 50px 50px; }
+        }
+
+        /* Light Trail Hover Effect */
+        .project-card, .timeline-item-content {
+            position: relative;
+            overflow: hidden;
+        }
+        .project-card::before, .timeline-item-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            transition: left 0.6s;
+            pointer-events: none;
+        }
+        .project-card:hover::before, .timeline-item-content:hover::before {
+            left: 100%;
+        }
+        
+        /* Typing cursor */
+        .typed-cursor { opacity: 1; animation: blink 0.7s infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+        
+        /* Timeline Core */
+        .timeline-container { position: relative; }
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, var(--accent-cyan), var(--charcoal-grey));
+            top: 0;
+            bottom: 0;
+            left: 24px;
+        }
+
+        .timeline-icon {
+            position: absolute;
+            left: 0;
+            z-index: 10;
+        }
+
+        /* Desktop Alternating Logic */
+        @media (min-width: 768px) {
+            .timeline-container::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .timeline-icon {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .timeline-item:nth-child(even) {
+                flex-direction: row-reverse;
+            }
+        }
+        
+        #experience, #contact {
+            position: relative;
+            background-color: #050816;
+            overflow: hidden;
+        }
+        #experience::before, #contact::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.05), transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(50, 100, 255, 0.05), transparent 50%),
+                radial-gradient(1px 1px at 20px 30px, #FFF, transparent),
+                radial-gradient(1.5px 1.5px at 90px 40px, #FFF, transparent);
+            background-repeat: repeat;
+            background-size: 100% 100%, 100% 100%, 100px 100px, 150px 150px;
+            animation: moveStars 100s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes moveStars {
+            from { background-position: 0 0, 0 0, 0 0, 0 0; }
+            to { background-position: 0 0, 0 0, -100px 50px, 150px -100px; }
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-black-radium">
+
+    <!-- Header -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <a href="#home" class="text-2xl font-bold text-white tracking-wider">KPS</a>
+                </div>
+                <nav class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-6">
+                        <a href="#home" class="nav-link nav-link-glow text-gray-300 transition-colors duration-300 font-medium">Home</a>
+                        <a href="#about" class="nav-link nav-link-glow text-gray-300 transition-colors duration-300 font-medium">About</a>
+                        <a href="#experience" class="nav-link nav-link-glow text-gray-300 transition-colors duration-300 font-medium">Journey</a>
+                        <a href="#projects" class="nav-link nav-link-glow text-gray-300 transition-colors duration-300 font-medium">Projects</a>
+                        <a href="#contact" class="nav-link nav-link-glow text-gray-300 transition-colors duration-300 font-medium">Contact</a>
+                    </div>
+                </nav>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white focus:outline-none">
+                         <div class="w-6 h-6 relative">
+                           <span id="l1" class="block absolute h-0.5 w-full bg-white transition-all duration-300 top-1/4"></span>
+                           <span id="l2" class="block absolute h-0.5 w-full bg-white transition-all duration-300 top-1/2"></span>
+                           <span id="l3" class="block absolute h-0.5 w-full bg-white transition-all duration-300 top-3/4"></span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 glassmorphism">
+                <a href="#home" class="nav-link block px-3 py-2 rounded-md text-lg font-medium">Home</a>
+                <a href="#about" class="nav-link block px-3 py-2 rounded-md text-lg font-medium">About</a>
+                <a href="#experience" class="nav-link block px-3 py-2 rounded-md text-lg font-medium">Journey</a>
+                <a href="#projects" class="nav-link block px-3 py-2 rounded-md text-lg font-medium">Projects</a>
+                <a href="#contact" class="nav-link block px-3 py-2 rounded-md text-lg font-medium">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 pt-20">
+
+        <!-- Home Section -->
+        <section id="home" class="min-h-screen flex items-center justify-center text-center -mx-4 sm:-mx-6 lg:-mx-8">
+            <div class="px-4">
+                <h1 class="text-4xl md:text-7xl font-bold text-white leading-tight mb-6">Hi, I'm K Purushotham Shenoy</h1>
+                <p class="text-2xl md:text-3xl font-medium text-gray-300 mb-8">
+                    <span id="typed-text" class="text-cyan"></span><span class="typed-cursor text-cyan">|</span>
+                </p>
+                <p class="text-xl md:text-2xl text-gray-400 mb-10 max-w-3xl mx-auto leading-relaxed">
+                    Passionate about building the future of technology, mastering cloud computing and DevOps to architect the resilient infrastructure of tomorrow.
+                </p>
+                <a href="#contact" class="inline-block bg-cyan-600/80 text-white font-bold py-4 px-10 rounded-lg button-glow transition-all duration-300 border border-cyan-400 text-lg">
+                    Get In Touch
+                </a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-24 fade-in-up">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-white tracking-wider uppercase">About Me</h2>
+                <div class="h-1.5 w-24 bg-cyan mx-auto mt-4"></div>
+            </div>
+            <div class="flex flex-col md:flex-row items-center gap-12 lg:gap-20">
+                <div class="md:w-1/3 flex justify-center">
+                    <div class="relative w-56 h-56 md:w-72 md:h-72 group">
+                         <div class="absolute inset-0 rounded-full border-2 border-cyan shadow-cyan-glow animate-pulse group-hover:scale-105 transition-transform duration-500"></div>
+                         <div class="absolute inset-1.5 rounded-full overflow-hidden border border-gray-800 bg-charcoal">
+                            <img src="assets/images/Pic.jpeg" 
+                                 alt="K Purushotham Shenoy" 
+                                 class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
+                                 onerror="this.src='https://placehold.co/400x400/1A1A1A/00FFFF?text=KPS'">
+                         </div>
+                    </div>
+                </div>
+                <div class="md:w-2/3 text-xl text-gray-300 space-y-6 leading-relaxed">
+                    <p>With a solid foundation in Python and Linux, I have expanded my technical toolkit to include SQL and DBMS, ensuring a deep understanding of data persistence in distributed systems.</p>
+                    <p>I am a self-motivated learner dedicated to mastering Infrastructure as Code (IaC), containerization, and CI/CD principles. I leverage Flask to build microservices, giving me a unique perspective on Dev and Ops.</p>
+                    <div class="pt-4">
+                        <h3 class="text-2xl font-semibold text-white mb-6">My Tech Stack</h3>
+                        <div class="flex flex-wrap gap-4">
+                            <span class="bg-gray-800/50 text-gray-300 text-base px-5 py-2 rounded-lg border border-gray-700 hover:border-cyan transition-colors">AWS</span>
+                            <span class="bg-gray-800/50 text-gray-300 text-base px-5 py-2 rounded-lg border border-gray-700 hover:border-cyan transition-colors">Docker</span>
+                            <span class="bg-gray-800/50 text-gray-300 text-base px-5 py-2 rounded-lg border border-gray-700 hover:border-cyan transition-colors">SQL</span>
+                            <span class="bg-gray-800/50 text-gray-300 text-base px-5 py-2 rounded-lg border border-gray-700 hover:border-cyan transition-colors">Flask</span>
+                            <span class="bg-gray-800/50 text-gray-300 text-base px-5 py-2 rounded-lg border border-gray-700 hover:border-cyan transition-colors">Python</span>
+                            <span class="bg-gray-800/50 text-gray-300 text-base px-5 py-2 rounded-lg border border-gray-700 hover:border-cyan transition-colors">Networking</span>
+                            <span class="bg-gray-800/50 text-gray-300 text-base px-5 py-2 rounded-lg border border-gray-700 hover:border-cyan transition-colors">Linux</span>
+                            <span class="bg-gray-800/50 text-gray-300 text-base px-5 py-2 rounded-lg border border-gray-700 hover:border-cyan transition-colors">HTML</span>
+                            <span class="bg-gray-800/50 text-gray-300 text-base px-5 py-2 rounded-lg border border-gray-700 hover:border-cyan transition-colors">CSS</span>
+                            <span class="bg-gray-800/50 text-gray-300 text-base px-5 py-2 rounded-lg border border-gray-700 hover:border-cyan transition-colors">PowerBI</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Journey Section -->
+        <section id="experience" class="py-24 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-8">
+            <div class="relative z-10 text-center mb-20 fade-in-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-white tracking-wider uppercase">My Journey</h2>
+                <div class="h-1.5 w-24 bg-cyan mx-auto mt-4"></div>
+            </div>
+            
+            <div class="timeline-container max-w-6xl mx-auto relative z-10">
+                
+                <!-- Item 1: Right Side -->
+                <div class="timeline-item flex items-center mb-20 fade-in-up">
+                    <div class="timeline-icon bg-charcoal border-2 border-cyan rounded-full w-14 h-14 flex items-center justify-center shadow-cyan-glow">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-cyan"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    </div>
+                    <div class="w-full md:w-1/2 pl-24 md:pl-28">
+                        <div class="timeline-item-content glassmorphism p-8 md:p-10 rounded-2xl border border-gray-800 shadow-xl">
+                            <span class="text-sm md:text-base text-cyan font-bold uppercase tracking-widest">Mid 2025</span>
+                            <h3 class="text-2xl md:text-3xl font-bold text-white mt-2">Foundation in Systems</h3>
+                            <p class="text-gray-300 text-lg md:text-xl mt-5 leading-relaxed break-words">
+                                Linux administration basics and shell scripting. Developed a deep appreciation for the command line, automation, and system architecture.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2: Left Side -->
+                <div class="timeline-item flex items-center mb-20 fade-in-up">
+                    <div class="timeline-icon bg-charcoal border-2 border-cyan rounded-full w-14 h-14 flex items-center justify-center shadow-cyan-glow">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-cyan"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                    </div>
+                    <div class="w-full md:w-1/2 pl-24 md:pl-0 md:pr-28">
+                        <div class="timeline-item-content glassmorphism p-8 md:p-10 rounded-2xl border border-gray-800 shadow-xl">
+                            <span class="text-sm md:text-base text-cyan font-bold uppercase tracking-widest">Mid 2025</span>
+                            <h3 class="text-2xl md:text-3xl font-bold text-white mt-2">Python & Web Dev</h3>
+                            <p class="text-gray-300 text-lg md:text-xl mt-5 leading-relaxed break-words">
+                                Focused on Python and Flask. Built several projects including image processing tools and CRUD applications integrated with robust SQL databases.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3: Right Side -->
+                <div class="timeline-item flex items-center mb-20 fade-in-up">
+                    <div class="timeline-icon bg-charcoal border-2 border-cyan rounded-full w-14 h-14 flex items-center justify-center shadow-cyan-glow">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-cyan"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                    </div>
+                    <div class="w-full md:w-1/2 pl-24 md:pl-28">
+                        <div class="timeline-item-content glassmorphism p-8 md:p-10 rounded-2xl border border-gray-800 shadow-xl">
+                            <span class="text-sm md:text-base text-cyan font-bold uppercase tracking-widest">Late 2025</span>
+                            <h3 class="text-2xl md:text-3xl font-bold text-white mt-2">Docker & Containerization</h3>
+                            <p class="text-gray-300 text-lg md:text-xl mt-5 leading-relaxed break-words">
+                                I learned Docker fundamentals, including image creation and core containerization concepts.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 4: Left Side -->
+                <div class="timeline-item flex items-center mb-20 fade-in-up">
+                    <div class="timeline-icon bg-charcoal border-2 border-cyan rounded-full w-14 h-14 flex items-center justify-center shadow-cyan-glow">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-cyan"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                    </div>
+                    <div class="w-full md:w-1/2 pl-24 md:pl-0 md:pr-28">
+                        <div class="timeline-item-content glassmorphism p-8 md:p-10 rounded-2xl border border-gray-800 shadow-xl">
+                            <span class="text-sm md:text-base text-cyan font-bold uppercase tracking-widest">Late 2025</span>
+                            <h3 class="text-2xl md:text-3xl font-bold text-white mt-2">Cloud Mastery (AWS)</h3>
+                            <p class="text-gray-300 text-lg md:text-xl mt-5 leading-relaxed break-words">
+                                Learnt Services such as Amazon EBS, Amazon EFS, IAM, EC2 management, S3 buckets.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-24">
+            <div class="text-center mb-16 fade-in-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-white tracking-wider uppercase">Projects</h2>
+                <div class="h-1.5 w-24 bg-cyan mx-auto mt-4"></div>
+            </div>
+            <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Project Cards will be injected by JavaScript -->
+            </div>
+        </section>
+        
+        <!-- Contact Section -->
+        <section id="contact" class="py-24 -mx-4 sm:-mx-6 lg:-mx-8 px-4">
+             <div class="relative z-10 text-center mb-16 fade-in-up">
+                 <h2 class="text-4xl md:text-5xl font-bold text-white tracking-wider uppercase">Connect</h2>
+                 <div class="h-1.5 w-24 bg-cyan mx-auto mt-4"></div>
+             </div>
+             <div class="relative z-10 max-w-2xl mx-auto text-center fade-in-up px-4">
+                 <p class="text-xl md:text-2xl text-gray-400 mb-10 leading-relaxed">
+                     I'm actively seeking new opportunities and I'm eager to apply my skills. Let's build something resilient together.
+                 </p>
+                 
+                 <!-- Download Resume Link: Replace the href with your actual file path -->
+                 <a href="assets/resume.pdf" target="_blank" class="inline-block bg-transparent text-cyan font-bold py-4 px-10 rounded-lg button-glow transition-all duration-300 border-2 border-cyan-400 mb-14 text-lg">
+                     Download Resume
+                 </a>
+
+                 <div class="flex justify-center space-x-10">
+                     <!-- GitHub Icon Link: Replace 'your-username' with your actual handle -->
+                     <a href="https://github.com/KPurushothamShenoy" target="_blank" class="text-gray-400 transition-all duration-300 icon-glow hover:scale-125" title="GitHub">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                     </a>
+                     <!-- LinkedIn Icon Link: Replace 'your-profile' with your actual handle -->
+                     <a href="https://www.linkedin.com/in/kpurushothamshenoy" target="_blank" class="text-gray-400 transition-all duration-300 icon-glow hover:scale-125" title="LinkedIn">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                     </a>
+                 </div>
+             </div>
+        </section>
+    </main>
+
+    <!-- Scroll to Top -->
+    <button id="scrollToTopBtn" class="hidden fixed bottom-6 right-6 z-50 bg-cyan text-black p-4 rounded-full shadow-cyan-glow transition-all hover:scale-110 active:scale-95">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+    </button>
+
+    <!-- Footer -->
+    <footer class="bg-black-radium border-t border-gray-900 py-10">
+        <div class="container mx-auto px-4 text-center text-gray-500 text-base">
+            <p>&copy; 2025 K. Purushotham Shenoy. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Project Modal -->
+    <div id="project-modal" class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/90 hidden opacity-0 transition-opacity duration-300">
+        <div class="modal-content glassmorphism rounded-2xl w-full max-w-5xl max-h-[95vh] overflow-y-auto transform scale-95 transition-transform duration-300">
+             <div class="p-8 md:p-12 relative">
+                <button id="modal-close" class="absolute top-4 right-8 text-4xl text-gray-400 hover:text-white transition-colors">&times;</button>
+                <div class="grid md:grid-cols-2 gap-10 mt-6">
+                    <div class="rounded-xl overflow-hidden bg-charcoal border border-gray-800 h-64 md:h-auto">
+                        <img id="modal-image" src="" alt="Project" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 id="modal-title" class="text-3xl md:text-4xl font-bold text-white mb-6"></h3>
+                        <p id="modal-description" class="text-gray-300 text-lg md:text-xl leading-relaxed mb-8"></p>
+                        <div class="mb-10">
+                            <h4 class="text-base font-bold text-cyan uppercase tracking-widest mb-4">Technologies</h4>
+                            <div id="modal-tech" class="flex flex-wrap gap-3"></div>
+                        </div>
+                        <div id="modal-links" class="flex flex-col sm:flex-row gap-4">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.getElementById('main-header');
+            window.addEventListener('scroll', () => {
+                header.classList.toggle('glassmorphism', window.scrollY > 20);
+            });
+
+            const mobileBtn = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const l1 = document.getElementById('l1'), l2 = document.getElementById('l2'), l3 = document.getElementById('l3');
+            
+            mobileBtn.addEventListener('click', () => {
+                const isHidden = mobileMenu.classList.toggle('hidden');
+                l1.classList.toggle('rotate-45', !isHidden); l1.classList.toggle('translate-y-2', !isHidden);
+                l2.classList.toggle('opacity-0', !isHidden);
+                l3.classList.toggle('-rotate-45', !isHidden); l3.classList.toggle('-translate-y-2', !isHidden);
+            });
+
+            const typedSpan = document.getElementById('typed-text');
+            const words = ["Learner", "DevOps Enthusiast", "Cloud Enthusiast", "Python Developer"];
+            let wordIdx = 0, charIdx = 0, isDeleting = false;
+            
+            function type() {
+                const current = words[wordIdx];
+                typedSpan.textContent = isDeleting ? current.substring(0, charIdx--) : current.substring(0, charIdx++);
+                
+                let speed = isDeleting ? 50 : 100;
+                if (!isDeleting && charIdx === current.length + 1) {
+                    isDeleting = true;
+                    speed = 2000;
+                } else if (isDeleting && charIdx === 0) {
+                    isDeleting = false;
+                    wordIdx = (wordIdx + 1) % words.length;
+                    speed = 500;
+                }
+                setTimeout(type, speed);
+            }
+            type();
+
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) e.target.classList.add('visible');
+                });
+            }, { threshold: 0.1 });
+            
+            const scrollBtn = document.getElementById('scrollToTopBtn');
+            window.addEventListener('scroll', () => scrollBtn.classList.toggle('hidden', window.scrollY < 300));
+            scrollBtn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            const projectData = [
+                { 
+                    title: 'Expense Tracker', 
+                    image: 'https://placehold.co/800x600/0A0A0A/00FFFF?text=Expense+Tracker', 
+                    description: 'The project helps users record daily expenses, view them in a structured way, and analyze spending patterns through an interactive dashboard. This project is designed with clean architecture, multi-page navigation, and real-world database integration.', 
+                    tech: ['Python', 'HTML', 'Flask', 'SQL','CSS','JavaScript'],
+                    github: 'https://github.com/KPurushothamShenoy/ExpenseTracker' 
+                },
+                { 
+                    title: 'Net Explorer Learning Lab',
+                    image: 'https://placehold.co/800x600/0A0A0A/00FFFF?text=Net+Explorer', 
+                    description: 'Net-Explorer Learning Lab is an interactive, full-stack educational platform designed to teach networking fundamentals through hands-on containerization. It allows users to visualize the OSI Model while interacting with live Docker environments and archiving performance reports to AWS S3.', 
+                    tech: ['Docker', 'SQL', 'Flask', 'Python','HTML','CSS','JavaScript'],
+                    github: 'https://github.com/KPurushothamShenoy/NetExplorerLearningLab' 
+                },
+                { 
+                    title: 'Portfolio', 
+                    image: 'https://placehold.co/800x600/0A0A0A/00FFFF?text=Portfolio', 
+                    description: 'My personal digital space built to showcase my journey in Cloud and DevOps engineering. Designed with a futuristic "Black Radium" aesthetic using Tailwind CSS and native JavaScript.', 
+                    tech: ['HTML', 'Tailwind CSS', 'JavaScript'],
+                    github: '' 
+                },
+                { 
+                    title: 'E-Commerce Frontend', 
+                    image: 'https://placehold.co/800x600/0A0A0A/00FFFF?text=E-Commerce', 
+                    description: 'A responsive frontend prototype for a modern e-commerce application focusing on smooth animations and user experience.', 
+                    tech: ['HTML', 'CSS', 'JavaScript'],
+                    github: 'https://github.com/KPurushothamShenoy/E-CommerceFrontend' 
+                }
+            ];
+
+            const projectGrid = document.getElementById('project-grid');
+            projectData.forEach((project, index) => {
+                const card = document.createElement('div');
+                card.className = "project-card glassmorphism rounded-xl flex flex-col fade-in-up overflow-hidden group";
+                card.innerHTML = `
+                    <div class="h-56 bg-charcoal flex items-center justify-center overflow-hidden">
+                        <img src="${project.image}" alt="${project.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-bold text-white mb-3">${project.title}</h3>
+                        <p class="text-gray-400 mb-8 text-base md:text-lg flex-grow leading-relaxed line-clamp-2">${project.description}</p>
+                        <div class="flex items-center gap-3">
+                            <button class="project-btn flex-grow bg-gray-800/80 text-cyan text-base font-bold py-3 px-4 rounded-lg border border-gray-700 hover:border-cyan transition-all" data-project="${index}">
+                                Learn More
+                            </button>
+                            <a href="${project.github}" target="_blank" class="bg-gray-800/80 text-cyan p-3 rounded-lg border border-gray-700 hover:border-cyan transition-all" title="GitHub Repo">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                            </a>
+                        </div>
+                    </div>
+                `;
+                projectGrid.appendChild(card);
+            });
+
+            document.querySelectorAll('.fade-in-up').forEach(el => obs.observe(el));
+
+            const modal = document.getElementById('project-modal');
+            const modalContent = modal.querySelector('.modal-content');
+            
+            document.addEventListener('click', (e) => {
+                if (e.target.classList.contains('project-btn')) {
+                    const index = e.target.dataset.project;
+                    const p = projectData[index];
+                    
+                    document.getElementById('modal-title').innerText = p.title;
+                    document.getElementById('modal-image').src = p.image;
+                    document.getElementById('modal-description').innerText = p.description;
+                    
+                    const techBox = document.getElementById('modal-tech');
+                    techBox.innerHTML = p.tech.map(t => `<span class="bg-gray-800 text-cyan text-sm font-bold px-4 py-2 rounded-full border border-gray-700">${t}</span>`).join('');
+                    
+                    document.getElementById('modal-links').innerHTML = `
+                        <a href="${p.github}" target="_blank" class="flex-1 flex items-center justify-center gap-3 bg-gray-800/80 text-cyan text-center font-bold py-4 rounded-xl border border-gray-700 hover:border-cyan transition-all text-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                            GitHub Source
+                        </a>
+                    `;
+                    
+                    modal.classList.remove('hidden');
+                    setTimeout(() => {
+                        modal.classList.add('opacity-100');
+                        modalContent.classList.add('scale-100');
+                    }, 10);
+                }
+            });
+
+            function closeModal() {
+                modal.classList.remove('opacity-100');
+                modalContent.classList.remove('scale-100');
+                setTimeout(() => modal.classList.add('hidden'), 300);
+            }
+            
+            document.getElementById('modal-close').onclick = closeModal;
+            modal.onclick = (e) => { if(e.target === modal) closeModal(); };
+        });
+    </script>
+</body>
+</html>

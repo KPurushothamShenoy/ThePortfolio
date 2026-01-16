@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K. Purushotham Shenoy - Cloud & DevOps Engineer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark-bg: #0A0A0A;
+            --charcoal-grey: #1A1A1A;
+            --light-text: #E0E0E0;
+            --accent-cyan: #00FFFF;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+        }
+
+        /* Black Radium Aesthetic */
+        .bg-black-radium { background-color: var(--dark-bg); }
+        .bg-charcoal { background-color: var(--charcoal-grey); }
+        .text-cyan { color: var(--accent-cyan); }
+        .border-cyan { border-color: var(--accent-cyan); }
+        .shadow-cyan-glow { box-shadow: 0 0 15px rgba(0, 255, 255, 0.3), 0 0 5px rgba(0, 255, 255, 0.5); }
+        .button-glow:hover { box-shadow: 0 0 25px rgba(0, 255, 255, 0.5), 0 0 10px rgba(0, 255, 255, 0.7); }
+        .icon-glow:hover, .nav-link-glow:hover { color: var(--accent-cyan); filter: drop-shadow(0 0 8px var(--accent-cyan)); }
+        
+        /* Glassmorphism */
+        .glassmorphism {
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Dynamic Grid Background */
+        #home {
+            background-image: 
+                linear-gradient(rgba(10, 10, 10, 0.95), rgba(10, 10, 10, 0.95)),
+                linear-gradient(0deg, var(--accent-cyan) 1px, transparent 1px), 
+                linear-gradient(90deg, var(--accent-cyan) 1px, transparent 1px);
+            background-size: 100% 100%, 50px 50px, 50px 50px;
+            background-position: 0 0, 0 0, 0 0;
+            animation: moveGrid 20s linear infinite;
+        }
+        @keyframes moveGrid {
+            from { background-position: 0 0, 0 0, 0 0; }
+            to { background-position: 0 0, 50px 50px, 50px 50px; }
+        }
+
+        /* Light Trail Hover Effect on Cards */
+        .project-card, .learning-card, .timeline-item-content {
+            position: relative;
+            overflow: hidden;
+        }
+        .project-card::before, .learning-card::before, .timeline-item-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.15), transparent);
+            transition: left 0.6s;
+            pointer-events: none;
+        }
+        .project-card:hover::before, .learning-card:hover::before, .timeline-item-content:hover::before {
+            left: 100%;
+        }
+        
+        /* Typing cursor */
+        .typed-cursor { opacity: 1; animation: blink 0.7s infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+        
+        /* Modal Styles */
+        #project-modal { transition: opacity 0.3s ease; }
+        #project-modal .modal-content { transition: transform 0.3s ease; }
+
+        /* Timeline Styles */
+        .timeline-container { position: relative; z-index: 1; }
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: var(--charcoal-grey);
+            top: 0;
+            bottom: 0;
+            /* Mobile-first: Line is on the left */
+            left: 24px;
+            transform: translateX(-50%);
+        }
+        .timeline-item { position: relative; }
+        .timeline-icon {
+            position: absolute;
+            /* Mobile-first: Icon is on the left */
+            left: 0;
+            transform: none;
+            z-index: 10;
+        }
+        
+        /* Desktop overrides: center the line and icon */
+        @media (min-width: 768px) {
+            .timeline-container::after {
+                left: 50%;
+            }
+            .timeline-icon {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+        
+        #experience, #contact {
+            position: relative;
+            background-color: #050816; /* Dark space blue */
+            overflow: hidden;
+        }
+        #experience::before, #contact::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image:
+                /* Nebulas */
+                radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.1), transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(50, 100, 255, 0.1), transparent 50%),
+                /* Starfield */
+                radial-gradient(2px 2px at 20px 30px, #FFF, transparent),
+                radial-gradient(2px 2px at 40px 70px, #FFF, transparent),
+                radial-gradient(1px 1px at 50px 50px, #FFF, transparent),
+                radial-gradient(1px 1px at 10px 80px, #FFF, transparent),
+                radial-gradient(1.5px 1.5px at 90px 40px, #FFF, transparent),
+                radial-gradient(1px 1px at 70px 20px, #FFF, transparent);
+            background-repeat: no-repeat, no-repeat, repeat;
+            background-size: 100% 100%, 100% 100%, 100px 100px;
+            animation: moveStars 50s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes moveStars {
+            from { background-position: 0 0, 0 0, 0 0; }
+            to { background-position: 0 0, 0 0, -100px 50px; }
+        }
+
+    </style>
+</head>
+<body class="bg-black-radium">
+
+    <!-- Header -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <a href="#home" class="text-2xl font-bold text-white tracking-wider">KPS</a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-6">
+                        <a href="#home" class="nav-link nav-link-glow text-gray-300 transition-colors duration-300">Home</a>
+                        <a href="#about" class="nav-link nav-link-glow text-gray-300 transition-colors duration-300">About</a>
+                        <a href="#experience" class="nav-link nav-link-glow text-gray-300 transition-colors duration-300">Experience</a>
+                        <a href="#projects" class="nav-link nav-link-glow text-gray-300 transition-colors duration-300">Projects</a>
+                        <a href="#contact" class="nav-link nav-link-glow text-gray-300 transition-colors duration-300">Contact</a>
+                    </div>
+                </div>
+                 <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white focus:outline-none">
+                         <div class="w-6 h-6 relative">
+                           <span id="l1" class="block absolute h-0.5 w-full bg-white transition-all duration-300 top-1/4"></span>
+                           <span id="l2" class="block absolute h-0.5 w-full bg-white transition-all duration-300 top-1/2"></span>
+                           <span id="l3" class="block absolute h-0.5 w-full bg-white transition-all duration-300 top-3/4"></span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 glassmorphism">
+                <a href="#home" class="nav-link nav-link-glow text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="#about" class="nav-link nav-link-glow text-gray-300 block px-3 py-2 rounded-md text-base font-medium">About</a>
+                <a href="#experience" class="nav-link nav-link-glow text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Experience</a>
+                <a href="#projects" class="nav-link nav-link-glow text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Projects</a>
+                <a href="#contact" class="nav-link nav-link-glow text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 pt-20">
+
+        <!-- Home Section -->
+        <section id="home" class="min-h-screen flex items-center justify-center text-center -mx-4 sm:-mx-6 lg:-mx-8">
+            <div>
+                <h1 class="text-4xl md:text-6xl font-bold text-white leading-tight mb-4">Hi, I'm K Purushotham Shenoy</h1>
+                <p class="text-xl md:text-2xl font-medium text-gray-300 mb-6">
+                    <span id="typed-text" class="text-cyan"></span><span class="typed-cursor text-cyan">|</span>
+                </p>
+                <p class="text-lg text-gray-400 mb-8 max-w-2xl mx-auto">
+                    Passionate about building the future of technology, I am currently mastering cloud computing and DevOps to architect the resilient infrastructure of tomorrow.
+                </p>
+                <a href="#contact" class="inline-block bg-cyan-600/80 text-white font-bold py-3 px-8 rounded-lg button-glow transition-all duration-300 border border-cyan-400">
+                    Get In Touch
+                </a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-24">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-white tracking-wider">ABOUT ME</h2>
+                <div class="h-1 w-20 bg-cyan mx-auto mt-4"></div>
+            </div>
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                <div class="md:w-1/3 flex justify-center">
+                    <div class="relative w-64 h-64">
+                         <div class="absolute inset-0 rounded-full border-2 border-cyan shadow-cyan-glow animate-pulse"></div>
+                         <img src="Pic.jpeg" alt="K Purushotham Shenoy" class="relative rounded-full w-full h-full object-cover object-top">
+                    </div>
+                </div>
+                <div class="md:w-2/3 text-lg text-gray-300 space-y-4">
+                    <p>With a solid foundation in Python and Linux, I have expanded my technical toolkit to include SQL and Database Management Systems (DBMS), ensuring a deep understanding of data persistence in distributed systems. I leverage Flask to build and understand the microservices that I deploy, giving me a unique perspective on the intersection of development and operations.</p>
+                    <p>I am a self-motivated learner dedicated to mastering Infrastructure as Code (IaC), containerization, and CI/CD principles. By bridging the gap between backend development and scalable infrastructure, I am actively seeking an opportunity to apply my knowledge and grow in a real-world environment.</p>
+                    <div class="pt-4">
+                        <h3 class="text-xl font-semibold text-white mb-4">My Tech Stack</h3>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="bg-gray-800 text-gray-300 text-sm font-medium px-4 py-2 rounded-lg border border-gray-700 transition-all duration-300 hover:border-cyan hover:shadow-cyan-glow">AWS</span>
+                            <span class="bg-gray-800 text-gray-300 text-sm font-medium px-4 py-2 rounded-lg border border-gray-700 transition-all duration-300 hover:border-cyan hover:shadow-cyan-glow">Docker</span>
+                            <span class="bg-gray-800 text-gray-300 text-sm font-medium px-4 py-2 rounded-lg border border-gray-700 transition-all duration-300 hover:border-cyan hover:shadow-cyan-glow">SQL</span>
+                            <span class="bg-gray-800 text-gray-300 text-sm font-medium px-4 py-2 rounded-lg border border-gray-700 transition-all duration-300 hover:border-cyan hover:shadow-cyan-glow">Flask</span>
+                            <span class="bg-gray-800 text-gray-300 text-sm font-medium px-4 py-2 rounded-lg border border-gray-700 transition-all duration-300 hover:border-cyan hover:shadow-cyan-glow">Python</span>
+                            <span class="bg-gray-800 text-gray-300 text-sm font-medium px-4 py-2 rounded-lg border border-gray-700 transition-all duration-300 hover:border-cyan hover:shadow-cyan-glow">Linux</span>
+                            <span class="bg-gray-800 text-gray-300 text-sm font-medium px-4 py-2 rounded-lg border border-gray-700 transition-all duration-300 hover:border-cyan hover:shadow-cyan-glow">Networking</span>
+                            <span class="bg-gray-800 text-gray-300 text-sm font-medium px-4 py-2 rounded-lg border border-gray-700 transition-all duration-300 hover:border-cyan hover:shadow-cyan-glow">PowerBI</span>
+                            <span class="bg-gray-800 text-gray-300 text-sm font-medium px-4 py-2 rounded-lg border border-gray-700 transition-all duration-300 hover:border-cyan hover:shadow-cyan-glow">HTML</span>
+                            <span class="bg-gray-800 text-gray-300 text-sm font-medium px-4 py-2 rounded-lg border border-gray-700 transition-all duration-300 hover:border-cyan hover:shadow-cyan-glow">CSS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience & Learning Section -->
+        <section id="experience" class="py-24">
+             <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-white tracking-wider">JOURNEY</h2>
+                <div class="h-1 w-20 bg-cyan mx-auto mt-4"></div>
+            </div>
+            <div class="timeline-container max-w-3xl mx-auto">
+                 <!-- Timeline Item -->
+                <div class="timeline-item flex md:justify-end mb-12">
+                    <div class="timeline-icon bg-charcoal border-2 border-cyan rounded-full w-12 h-12 flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+                    <div class="w-full md:w-5/12 pl-20 md:pl-6 timeline-item-content glassmorphism p-6 rounded-lg border border-gray-800">
+                        <p class="text-sm text-cyan font-medium mb-1">In Progress</p>
+                        <h3 class="text-lg font-semibold text-white">Currently Building Foundataion Knowledge On Cloud Infrastructure.</h3>
+                        <p class="text-gray-400 text-sm mt-2">Building a foundational understanding of AWS cloud concepts, services, security, architecture, and pricing.</p>
+                    </div>
+                </div>
+                <div class="timeline-item flex md:justify-end mb-12">
+                    <div class="timeline-icon bg-charcoal border-2 border-cyan rounded-full w-12 h-12 flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+                    <div class="w-full md:w-5/12 pl-20 md:pl-6 timeline-item-content glassmorphism p-6 rounded-lg border border-gray-800">
+                        <p class="text-sm text-cyan font-medium mb-1">In Progress</p>
+                        <h3 class="text-lg font-semibold text-white">Currently Building Foundataion Knowledge On Cloud Infrastructure.</h3>
+                        <p class="text-gray-400 text-sm mt-2">Building a foundational understanding of AWS cloud concepts, services, security, architecture, and pricing.</p>
+                    </div>
+                </div>
+                <div class="timeline-item flex md:justify-end mb-12">
+                    <div class="timeline-icon bg-charcoal border-2 border-cyan rounded-full w-12 h-12 flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+                    <div class="w-full md:w-5/12 pl-20 md:pl-6 timeline-item-content glassmorphism p-6 rounded-lg border border-gray-800">
+                        <p class="text-sm text-cyan font-medium mb-1">In Progress</p>
+                        <h3 class="text-lg font-semibold text-white">Currently Building Foundataion Knowledge On Cloud Infrastructure.</h3>
+                        <p class="text-gray-400 text-sm mt-2">Building a foundational understanding of AWS cloud concepts, services, security, architecture, and pricing.</p>
+                    </div>
+                </div>
+                <div class="timeline-item flex md:justify-end mb-12">
+                    <div class="timeline-icon bg-charcoal border-2 border-cyan rounded-full w-12 h-12 flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+                    <div class="w-full md:w-5/12 pl-20 md:pl-6 timeline-item-content glassmorphism p-6 rounded-lg border border-gray-800">
+                        <p class="text-sm text-cyan font-medium mb-1">In Progress</p>
+                        <h3 class="text-lg font-semibold text-white">Currently Building Foundataion Knowledge On Cloud Infrastructure.</h3>
+                        <p class="text-gray-400 text-sm mt-2">Building a foundational understanding of AWS cloud concepts, services, security, architecture, and pricing.</p>
+                    </div>
+                </div>
+                 <!-- Timeline Item -->
+                
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-24">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-white tracking-wider">PROJECTS</h2>
+                <div class="h-1 w-20 bg-cyan mx-auto mt-4"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project Card 1 -->
+                <div class="project-card glassmorphism rounded-lg flex flex-col">
+                    <img src="https://placehold.co/600x400/0A0A0A/00FFFF?text=Project+Alpha" alt="Project 1" class="rounded-t-lg">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold text-white mb-2">Containerized Python App</h3>
+                        <p class="text-gray-400 mb-4 text-sm flex-grow">A project to learn Docker by containerizing a Python Flask web application.</p>
+                        <button class="inline-block bg-gray-800 text-gray-300 font-semibold py-2 px-4 rounded-lg border border-gray-700 hover:bg-gray-700 hover:text-white transition-colors duration-300 mt-auto self-start" data-project="0">Learn More</button>
+                    </div>
+                </div>
+                <!-- Project Card 2 -->
+                <div class="project-card glassmorphism rounded-lg flex flex-col">
+                    <img src="https://placehold.co/600x400/0A0A0A/00FFFF?text=Project+Beta" alt="Project 2" class="rounded-t-lg">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold text-white mb-2">AWS S3 Static Website</h3>
+                        <p class="text-gray-400 mb-4 text-sm flex-grow">Deployed a static website using AWS S3, demonstrating basic knowledge of AWS services.</p>
+                        <button class="inline-block bg-gray-800 text-gray-300 font-semibold py-2 px-4 rounded-lg border border-gray-700 hover:bg-gray-700 hover:text-white transition-colors duration-300 mt-auto self-start" data-project="1">Learn More</button>
+                    </div>
+                </div>
+                <!-- Project Card 3 -->
+                <div class="project-card glassmorphism rounded-lg flex flex-col">
+                    <img src="https://placehold.co/600x400/0A0A0A/00FFFF?text=PixelForge" alt="Project 3" class="rounded-t-lg">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold text-white mb-2">PixelForge</h3>
+                        <p class="text-gray-400 mb-4 text-sm flex-grow">Python,Flask Based web application to change teh gradient of the images.</p>
+                        <button class="inline-block bg-gray-800 text-gray-300 font-semibold py-2 px-4 rounded-lg border border-gray-700 hover:bg-gray-700 hover:text-white transition-colors duration-300 mt-auto self-start" data-project="2">Learn More</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact Section -->
+        <section id="contact" class="py-24">
+             <div class="relative z-10 text-center mb-16">
+                 <h2 class="text-4xl font-bold text-white tracking-wider">CONNECT</h2>
+                 <div class="h-1 w-20 bg-cyan mx-auto mt-4"></div>
+             </div>
+             <div class="relative z-10 max-w-xl mx-auto text-center">
+                 <p class="text-lg text-gray-400 mb-8">
+                     I'm actively seeking new opportunities and I'm eager to apply my skills. If you have a project in mind or just want to talk tech, I'd love to hear from you.
+                 </p>
+                 <a href="RESUME_LINK_HERE" class="inline-block bg-transparent text-cyan font-bold py-3 px-8 rounded-lg button-glow transition-all duration-300 border-2 border-cyan-400 mb-8">
+                     Download Resume
+                 </a>
+                 <div class="flex justify-center space-x-6">
+                     <a href="#" class="text-gray-400 transition-all duration-300 icon-glow"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                     <a href="#" class="text-gray-400 transition-all duration-300 icon-glow"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+                     <a href="#" class="text-gray-400 transition-all duration-300 icon-glow"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a>
+                 </div>
+             </div>
+        </section>
+    </main>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" class="hidden fixed bottom-5 right-5 bg-cyan/80 text-black p-3 rounded-full shadow-cyan-glow transition-all duration-300 hover:bg-cyan">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </button>
+
+    <!-- Footer -->
+    <footer class="bg-black-radium border-t border-gray-900">
+        <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-400">
+            <p>&copy; 2025 K. Purushotham Shenoy. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Project Modal -->
+    <div id="project-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 hidden opacity-0">
+        <div class="modal-content glassmorphism rounded-lg w-full max-w-3xl max-h-full overflow-y-auto transform scale-95">
+             <div class="p-6 md:p-8">
+                <div class="flex justify-between items-start">
+                    <h3 id="modal-title" class="text-2xl font-bold text-white"></h3>
+                    <button id="modal-close" class="text-gray-400 hover:text-white transition-colors">&times;</button>
+                </div>
+                <div class="mt-4 md:flex gap-8">
+                    <img id="modal-image" src="" alt="Project Image" class="w-full md:w-1/2 rounded-lg object-cover">
+                    <div class="mt-4 md:mt-0">
+                        <p id="modal-description" class="text-gray-300"></p>
+                        <div class="mt-4">
+                            <h4 class="font-semibold text-white mb-2">Tech Stack:</h4>
+                            <div id="modal-tech" class="flex flex-wrap gap-2"></div>
+                        </div>
+                        <div id="modal-links" class="mt-6 flex space-x-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom CSS for components -->
+    <style>
+        .nav-link.active { color: var(--accent-cyan); }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Header scroll effect
+            const header = document.getElementById('main-header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('glassmorphism');
+                } else {
+                    header.classList.remove('glassmorphism');
+                }
+            });
+
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const l1 = document.getElementById('l1'), l2 = document.getElementById('l2'), l3 = document.getElementById('l3');
+            mobileMenuButton.addEventListener('click', () => {
+                const isOpened = mobileMenu.classList.toggle('hidden');
+                l1.classList.toggle('rotate-45', !isOpened); l1.classList.toggle('top-1/2', !isOpened);
+                l2.classList.toggle('opacity-0', !isOpened);
+                l3.classList.toggle('-rotate-45', !isOpened); l3.classList.toggle('top-1/2', !isOpened);
+            });
+            document.querySelectorAll('#mobile-menu a').forEach(link => link.addEventListener('click', () => mobileMenuButton.click()));
+
+            // Typing effect
+            const typedTextSpan = document.getElementById('typed-text');
+            const textArray = ["Learner", "DevOps Enthusiast", "Python Developer", "Seeking New Opportunities"];
+            let textIndex = 0, charIndex = 0;
+            const type = () => {
+                if (charIndex < textArray[textIndex].length) {
+                    typedTextSpan.textContent += textArray[textIndex].charAt(charIndex++);
+                    setTimeout(type, 100);
+                } else { setTimeout(erase, 2000); }
+            };
+            const erase = () => {
+                if (charIndex > 0) {
+                    typedTextSpan.textContent = textArray[textIndex].substring(0, --charIndex);
+                    setTimeout(erase, 50);
+                } else { textIndex = (textIndex + 1) % textArray.length; setTimeout(type, 500); }
+            };
+            setTimeout(type, 2000);
+
+            // Scroll animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('fade-in-up');
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('section, .timeline-item').forEach(el => {
+                el.classList.add('opacity-0');
+                observer.observe(el);
+            });
+
+            // Scroll to top button
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            window.onscroll = () => scrollToTopBtn.classList.toggle('hidden', document.body.scrollTop < 200 && document.documentElement.scrollTop < 200);
+            scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            
+            // Active nav link highlighting
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('main > section');
+            const changeLinkState = () => {
+                let index = sections.length;
+                while(--index && window.scrollY + 100 < sections[index].offsetTop) {}
+                navLinks.forEach(link => link.classList.remove('active'));
+                document.querySelectorAll(`.nav-link[href="#${sections[index].id}"]`).forEach(link => link.classList.add('active'));
+            };
+            changeLinkState();
+            window.addEventListener('scroll', changeLinkState);
+
+            // Project Modal Logic
+            const projects = [
+                { title: 'Containerized Python Application', image: 'https://placehold.co/800x600/0A0A0A/00FFFF?text=WebApp', description: 'This project involved creating a simple Python Flask web application and then containerizing it using Docker. I defined a Dockerfile to create a portable image and used Docker Compose to manage the multi-container environment, which included the web app and a database. This was a foundational project for understanding containerization principles.', tech: ['Python', 'Flask', 'Docker', 'Docker Compose'], github: '#', live: '#' },
+                { title: 'AWS S3 Static Website', image: 'https://placehold.co/800x600/0A0A0A/00FFFF?text=Cloud+Hosting', description: 'To practice fundamental AWS skills, I deployed a simple static portfolio website. I configured an S3 bucket for static website hosting, set up the correct bucket policies and permissions using IAM, and enabled public access. This project helped me understand core AWS services and the process of deploying content to the cloud.', tech: ['AWS S3', 'IAM', 'HTML', 'CSS'], github: '#', live: '#' },
+                { title: 'Linux Automation Scripts', image: 'https://placehold.co/800x600/0A0A0A/00FFFF?text=Shell+Scripting', description: 'Developed a collection of Bash scripts to automate common administrative tasks on a Linux server. These scripts handle user creation, software installation, system updates, and scheduled backups using cron jobs. This project significantly improved my command-line skills and understanding of Linux system administration.', tech: ['Bash', 'Linux', 'Cron'], github: '#', live: '#' }
+            ];
+            const modal = document.getElementById('project-modal');
+            const modalContent = modal.querySelector('.modal-content');
+            document.querySelectorAll('.project-btn').forEach(btn => {
+                btn.onclick = () => {
+                    const project = projects[btn.dataset.project];
+                    document.getElementById('modal-title').innerText = project.title;
+                    document.getElementById('modal-image').src = project.image;
+                    document.getElementById('modal-description').innerText = project.description;
+                    
+                    const techContainer = document.getElementById('modal-tech');
+                    techContainer.innerHTML = '';
+                    project.tech.forEach(t => techContainer.innerHTML += `<span class="bg-gray-800 text-cyan text-xs font-medium px-2.5 py-1 rounded-full">${t}</span>`);
+                    
+                    const linksContainer = document.getElementById('modal-links');
+                    linksContainer.innerHTML = `
+                        <a href="${project.github}" target="_blank" class="inline-block bg-gray-800 text-gray-300 font-semibold py-2 px-4 rounded-lg border border-gray-700 hover:bg-gray-700 hover:text-white transition-colors duration-300">GitHub</a>
+                        <a href="${project.live}" target="_blank" class="inline-block bg-gray-800 text-gray-300 font-semibold py-2 px-4 rounded-lg border border-gray-700 hover:bg-gray-700 hover:text-white transition-colors duration-300">Live Demo</a>
+                    `;
+                    
+                    modal.classList.remove('hidden');
+                    setTimeout(() => {
+                        modal.classList.remove('opacity-0');
+                        modalContent.classList.remove('scale-95');
+                    }, 10);
+                };
+            });
+            const closeModal = () => {
+                modal.classList.add('opacity-0');
+                modalContent.classList.add('scale-95');
+                setTimeout(() => modal.classList.add('hidden'), 300);
+            };
+            document.getElementById('modal-close').onclick = closeModal;
+            modal.onclick = (e) => { if (e.target === modal) closeModal(); };
+        });
+    </script>
+    
+    <style>
+        .opacity-0 { opacity: 0; }
+        .fade-in-up {
+            opacity: 1;
+            transform: translateY(0);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</body>
+</html>
+
